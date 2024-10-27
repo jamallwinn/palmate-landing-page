@@ -1,3 +1,15 @@
+
+#!/bin/bash
+
+# Function to echo commands with a specific color
+echo_blue() {
+    echo -e "\033[1;34m$1\033[0m"
+}
+
+echo_blue "🚀 Updating Landing Page...\n"
+
+# Update page.tsx with new content
+cat > src/app/page.tsx << 'EOF'
 "use client";
 
 import React from 'react'
@@ -178,3 +190,34 @@ export default function LandingPage() {
     </div>
   )
 }
+EOF
+
+# Update globals.css to add marquee animation
+cat >> src/app/globals.css << 'EOF'
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+  display: inline-block;
+}
+EOF
+
+# Commit and push changes
+git add .
+git commit -m "Update: Complete landing page implementation"
+git push origin main
+
+echo_blue "\n✅ Landing page updated and pushed to GitHub!"
+echo_blue "Now deploying to Vercel..."
+
+# Deploy to Vercel
+vercel --prod
+
+echo_blue "\n✅ Deployment complete!"
