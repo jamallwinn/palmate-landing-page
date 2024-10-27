@@ -29,9 +29,23 @@
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-neutral-200;
   }
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+  display: inline-block;
 }
